@@ -1,0 +1,268 @@
+{
+    "swagger"   : "2.0",
+    "info"      : {
+        "description"   : "Books API call documentation",
+        "version"       : "1.0.0",
+        "title"         : "Manage Books API",
+        "contact"       : {
+            "email"     : "admin@mail.com"
+        },
+        "license"       : {
+            "name"      : "Apache 2.0",
+            "url"       : "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes"   : ["http"],
+    "host"      : "localhost:3000",
+    "basePath"  : "/api/books",
+    "paths"     : {
+        "/all"    : {
+            "get"       : {
+                "summary"       : "Get all the books",
+                "description"   : "Get all the books",
+                "produces"      : ["application/json"],
+                "parameters"    : [],
+                "responses"     : {
+                    "200"       : {
+                        "description"   : "successful operation",
+                        "schema"        : {
+                            "type"      : "array",
+                            "items"     : {
+                                "$ref"  : "#/definitions/BooksResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description"   : "Invalid status value",
+                        "schema"        : {
+                            "$ref"      : "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/new" : {
+            "post"  : {
+                "summary"       : "Save the book",
+                "description"   : "Save the book",
+                "produces"      : ["application/json"],
+                "consumes"      : ["application/json"],
+                "parameters"    : [
+                    {
+                        "in"            : "body",
+                        "name"          : "book",
+                        "description"   : "Book object",
+                        "required"      : true,
+                        "schema"        : {
+                            "type"      : "object",
+                            "properties": {
+                                "book"  : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/Book"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses"     : {
+                    "200"       : {
+                        "description"   : "successful operation",
+                        "schema"        : {
+                            "type"      : "array",
+                            "items"     : {
+                                "$ref"  : "#/definitions/BooksResponse"
+                            }
+                        }
+                    },
+                    "201"       : {
+                        "description"   : "successful save",
+                        "schema"        : {
+                            "type"      : "array",
+                            "items"     : {
+                                "$ref"  : "#/definitions/BooksResponse"
+                            }
+                        }
+                    },
+                    "400"       : {
+                        "description"   : "Invalid status value",
+                        "schema"        : {
+                            "$ref"      : "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "412"       : {
+                        "description"   : "Validation error",
+                        "schema"        : {
+                            "$ref"      : "#/definitions/ValidationResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/update/{bookid}" : {
+            "put" : {
+                "summary"       : "Update the book",
+                "description"   : "Update the book",
+                "produces"      : ["application/json"],
+                "parameters"    : [
+                    {
+                        "name"          : "bookid",
+                        "in"            : "path",
+                        "description"   : "Book id that needs to be updated",
+                        "required"      : true,
+                        "type"          : "string"
+                    },
+                    {
+                        "in"            : "body",
+                        "name"          : "book",
+                        "description"   : "Book object",
+                        "required"      : true,
+                        "schema"        : {
+                            "type"      : "object",
+                            "properties": {
+                                "book"  : {
+                                    "type"  : "object",
+                                    "$ref"  : "#/definitions/Book"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses"     : {
+                    "200"       : {
+                        "description"   : "successful operation",
+                        "schema"        : {
+                            "type"      : "array",
+                            "items"     : {
+                                "$ref"  : "#/definitions/BooksResponse"
+                            }
+                        }
+                    },
+                    "201"       : {
+                        "description"   : "successful update",
+                        "schema"        : {
+                            "type"      : "array",
+                            "items"     : {
+                                "$ref"  : "#/definitions/BooksResponse"
+                            }
+                        }
+                    },
+                    "400"       : {
+                        "description"   : "Invalid status value",
+                        "schema"        : {
+                            "$ref"      : "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/{bookid}" : {
+            "delete"        : {
+                "summary"           : "Delete the book",
+                "description"       : "Delete the book",
+                "produces"          : ["application/json"],
+                "parameters"        : [
+                    {
+                        "name"          : "bookid",
+                        "in"            : "path",
+                        "description"   : "Book id that needs to be deleted",
+                        "required"      : true,
+                        "type"          : "string"
+                    }
+                ],
+                "responses" : {
+                    "200"   : {
+                        "description"   : "successful operation",
+                        "schema"        : {
+                            "type"      : "array",
+                            "items"     : {
+                                "$ref"  : "#/definitions/BooksResponse"
+                            }
+                        }
+                    },
+                    "201"       : {
+                        "description"   : "successful delete",
+                        "schema"        : {
+                            "type"      : "array",
+                            "items"     : {
+                                "$ref"  : "#/definitions/BooksResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        }   
+    }, 
+    "definitions"   : {
+        "BooksResponse" : {
+            "type"          : "object",
+            "properties"    : {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "publication": {
+                    "type": "number"
+                }
+            }
+        },        
+        "InvalidResponse": {
+            "type"       : "object",
+            "properties" : {
+                "statusCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ValidationResponse": {
+            "type"       : "object",
+            "properties" : {
+                "statusCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object"
+                }
+            }
+        },
+        "Book" : {
+            "type"      : "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },                
+                "author": {
+                    "type": "string"
+                },
+                "publication": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}
