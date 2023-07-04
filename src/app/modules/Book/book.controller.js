@@ -31,9 +31,9 @@ class BookController {
 
     async addBook(req, res, next) {       
         try {
-            let bookData  = getBookData(req.body.book, null);
+            let bookData = getBookData(req.body.book, null);
             if(bookData.name && bookData.description && bookData.author && bookData.publication) {
-                let result    = await bookService.addBook(bookData);
+                let result = await bookService.addBook(bookData);
                 if(result && Object.keys(result).length) {
                     res.status(201).json(result);
                 }

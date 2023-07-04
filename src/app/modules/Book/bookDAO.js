@@ -13,14 +13,14 @@ class BookDAO {
     }
 
     async addBook(data) {
-        try {
-            const newBook   = new Book(data);
-            const result    = await newBook.addBook();
-            return result;
-        } catch (error) {
-            let defaultErrorMsge = "Failed to add the book.";
-            return error.message ? error.message : defaultErrorMsge;
-        }
+            try {
+                const newBook   = new Book(data);
+                const result    = await newBook.addBook();
+                return result;
+            } catch (error) {
+                let defaultErrorMsge = "Failed to add the book.";
+                return error.message ? error.message : defaultErrorMsge;
+            }
     }
 
     async updateBook(id, data) {
